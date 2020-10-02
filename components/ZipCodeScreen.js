@@ -2,6 +2,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { View, Text, FlatList, TouchableHighlight } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { ImageBackground, StyleSheet } from 'react-native';
 
 const availableZipItems = [
     { place: '1. Nakhonsithammarat', code: '80000' },
@@ -22,9 +23,9 @@ const availableZipItems = [
 
 const ZipItem = ({ place, code, navigation }) => (
     <TouchableHighlight onPress={() => navigation.navigate('Weather', { zipCode: code })}>
-        <View style={{ borderColor: 'red', borderWidth: 3 }}>
-            <Text>{place}</Text>
-            <Text>{code}</Text>
+        <View style={{ borderColor: 'white', borderWidth: 30 }}>
+            <Text style={styles.container, styles.Province}>{place}</Text>
+            <Text style={styles.container}>{code}</Text>
         </View>
     </TouchableHighlight>
 )
@@ -35,6 +36,7 @@ export default function ZipCodeScreen() {
     const navigation = useNavigation()
     return (
         <View>
+            <Text style={styles.title}>รายชื่อแต่ละจังหวัดและรหัสไปรษณีย์ ( ภาคใต้ )</Text>
             <FlatList
                 data={availableZipItems}
                 keyExtractor={_keyExtractor}
@@ -43,4 +45,35 @@ export default function ZipCodeScreen() {
             <StatusBar style="auto" />
         </View>
     );
+
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        fontSize: 15,
+        paddingVertical: 5,
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "red",
+        backgroundColor: "#CCFFCC",
+    },
+    Province: {
+        borderColor: "#CCFFCC",
+        borderRadius: 6,
+        backgroundColor: "#CCFFCC",
+        color: "#20232a",
+        textAlign: "center",
+        fontSize: 20,
+        fontWeight: "bold",
+    },
+    title: {
+        marginTop: 10,
+        paddingVertical: 35,
+        backgroundColor: "#66FF33",
+        color: "black",
+        textAlign: "center",
+        fontSize: 15,
+        fontWeight: "bold"
+    }
+});
